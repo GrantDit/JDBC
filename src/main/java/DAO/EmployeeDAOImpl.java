@@ -39,7 +39,10 @@ public class EmployeeDAOImpl implements EmployeeDAO {
                 "SELECT * FROM employee INNER JOIN city ON employee.city_id=city.city_id AND id=(?)")) {
             statement.setInt(1, id);
             ResultSet resultSet = statement.executeQuery();
-            while (resultSet.next()) {
+            if (resultSet.next()) {
+                return null;
+            }
+            if(resultSet.next()){
                 employee.setId(Integer.parseInt(resultSet.getString("id")));
                 employee.setFirstName(resultSet.getString("first_name"));
                 employee.setLastName(resultSet.getString("last_name"));
@@ -48,7 +51,7 @@ public class EmployeeDAOImpl implements EmployeeDAO {
                 employee.setCity(new City(resultSet.getInt("city_id"), resultSet.getString("city_name")));
             }
         } catch (SQLException e) {
-            e.printStackTrace();
+                e.printStackTrace();
         }
         return employee;
     }
