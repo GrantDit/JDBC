@@ -90,9 +90,11 @@ public class Employee {
     public int hashCode() {
         return Objects.hash(id, firstName, lastName, gender, age, city);
     }
-
     @Override
     public String toString() {
+        if (id == 0) {
+            return null;
+        }
         return "id: " + id + ", Имя: " + firstName + ", Фамилия: " + lastName +
                 ", пол: " + gender + ", возраст: " + age + ", город: " + city;
     }

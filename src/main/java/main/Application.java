@@ -32,6 +32,7 @@ public class Application {
                 System.out.println(employeeLastName);
                 System.out.println(employeeGender);
                 System.out.println(employeeCity);
+                System.out.println(resultSet);
             }
         }
         try (final Connection connection = DriverManager.getConnection(url, user, password)) {
@@ -39,7 +40,8 @@ public class Application {
 
             employeeDAO.create(new Employee("Petr", "Petrov", "male", 20, new City(2, "Moscow")));
 
-            System.out.println(employeeDAO.readById(4));
+            System.out.println(employeeDAO.readById(52));
+
 
             List<Employee> employeeList = new ArrayList<>(employeeDAO.readAll());
             employeeList.forEach(System.out::println);

@@ -36,13 +36,10 @@ public class EmployeeDAOImpl implements EmployeeDAO {
     public Employee readById(int id) {
         Employee employee = new Employee();
         try (PreparedStatement statement = connection.prepareStatement(
-                "SELECT * FROM employee INNER JOIN city ON employee.city_id=city.city_id AND id=(?)")) {
+                "SELECT * FROM employee WHERE id = (?)")) {
             statement.setInt(1, id);
             ResultSet resultSet = statement.executeQuery();
             if (resultSet.next()) {
-                return null;
-            }
-            if(resultSet.next()){
                 employee.setId(Integer.parseInt(resultSet.getString("id")));
                 employee.setFirstName(resultSet.getString("first_name"));
                 employee.setLastName(resultSet.getString("last_name"));
@@ -51,7 +48,7 @@ public class EmployeeDAOImpl implements EmployeeDAO {
                 employee.setCity(new City(resultSet.getInt("city_id"), resultSet.getString("city_name")));
             }
         } catch (SQLException e) {
-                e.printStackTrace();
+            e.printStackTrace();
         }
         return employee;
     }
